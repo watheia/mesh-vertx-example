@@ -1,4 +1,4 @@
-package com.gentics.mesh.example;
+package org.watheia.web;
 
 import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
 import static io.vertx.core.http.impl.HttpUtils.normalizePath;
