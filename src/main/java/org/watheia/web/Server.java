@@ -137,9 +137,8 @@ public class Server extends AbstractVerticle {
 				}
 
 				rc.response().putHeader(CONTENT_TYPE, contentType);
-				binaryResponse.getFlowable()
-					.map(Buffer::buffer)
-					.subscribe(serverResponse::write, rc::fail, serverResponse::end);
+				binaryResponse.getFlowable().map(Buffer::buffer).subscribe(serverResponse::write, rc::fail,
+						serverResponse::end);
 				// Note that we are not calling rc.next() which
 				// will prevent the execution of the template route handler.
 				return;
@@ -154,8 +153,8 @@ public class Server extends AbstractVerticle {
 	public void start() throws Exception {
 		// Connect to Gentics Mesh on https://demo.getmesh.io or http://localhost:8080
 		log.info("Connecting to Gentics Mesh..");
-		client = MeshRestClient.create("demo.getmesh.io", 443, true);
-		// client = MeshRestClient.create("localhost", 80, false, vertx);
+		// client = MeshRestClient.create("demo.getmesh.io", 443, true);
+		client = MeshRestClient.create("localhost", 8080, false);
 
 		topNavQuery = getQuery("loadOnlyTopNav");
 		byPathQuery = getQuery("loadByPath");
@@ -173,7 +172,7 @@ public class Server extends AbstractVerticle {
 			rc.response().setStatusCode(500).end();
 		});
 
-		int port = 3000;
+		int port = 5000;
 		log.info("Server running on port " + port);
 		vertx.createHttpServer().requestHandler(router).listen(port);
 	}
@@ -200,6 +199,7 @@ public class Server extends AbstractVerticle {
 
 	private Single<GraphQLResponse> loadByPath(String path) {
 		String query = byPathQuery;
-		return client.graphql("demo", new GraphQLRequest().setQuery(query).setVariables(new JsonObject().put("path", path))).toSingle();
+		return client.graphql("demo", new GraphQLRequest().setQuery(query).setVariables(new JsonObject().put("path", path)))
+				.toSingle();
 	}
 }

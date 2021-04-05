@@ -9,12 +9,6 @@ plugins {
     id "io.vertx.vertx-plugin" version "1.2.0"
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-}
-
 repositories {
     mavenLocal()
     maven {
@@ -26,16 +20,11 @@ repositories {
     }
 }
 
-dependencies {
-    implementation 'com.gentics.mesh:mesh-rest-client:1.7.6'
-    implementation 'io.vertx:vertx-web:3.8.0'
-    implementation 'io.vertx:vertx-web-templ-handlebars:3.8.0'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
-
-group = 'org.watheia'
-version = '0.0.1-SNAPSHOT'
-description = 'mesh-vertx-example'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 publishing {
     publications {
@@ -43,6 +32,16 @@ publishing {
             from(components.java)
         }
     }
+}
+
+dependencies {
+    implementation 'com.gentics.mesh:mesh-rest-client:1.7.6'
+    implementation 'io.vertx:vertx-web:3.9.5'
+    implementation 'io.vertx:vertx-web-templ-handlebars:3.9.5'
+}
+
+vertx {
+    mainVerticle = 'org.watheia.web.Server'
 }
 
 defaultTasks 'assemble'
