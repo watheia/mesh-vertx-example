@@ -1,6 +1,7 @@
 .classpath
-target
+build
 .vertx
 .project
 .settings
+.gradle
 dependency-reduced-pom.xml
