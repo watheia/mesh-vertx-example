@@ -1,9 +1,9 @@
 version: "3"
 services:
-  www:
-    build: .
-    ports:
-      - "5000:5000"
+  # www:
+  #   build: .
+  #   ports:
+  #     - "5000:5000"
   mesh:
     image: gentics/mesh-demo:1.7.6
     container_name: mesh-server
